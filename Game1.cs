@@ -10,10 +10,17 @@ public class Game1 : Game
     private SpriteBatch _spriteBatch;
 
     Texture2D pixel;
+    SpriteFont fontScore;
 
     Rectangle paddleLeft = new Rectangle(10, 200, 20, 100);
     Rectangle paddleRight = new Rectangle(770, 200, 20, 100);
     Rectangle ball = new Rectangle(390, 230, 20, 20);
+
+    float velocityX = 3;
+    float velocityY = 2;
+
+    int scoreLeftPlayer = 0;
+    int scoreRightPlayer = 0;
 
     public Game1()
     {
@@ -35,6 +42,7 @@ public class Game1 : Game
 
         // TODO: use this.Content to load your game content here
         pixel = Content.Load<Texture2D>("Pixel");
+        fontScore = Content.Load<SpriteFont>("Score");
     }
 
     protected override void Update(GameTime gameTime)
@@ -43,18 +51,37 @@ public class Game1 : Game
             Exit();
 
         KeyboardState kState = Keyboard.GetState();
-        if (kState.IsKeyDown(Keys.W)){
+        if (kState.IsKeyDown(Keys.W) && paddleLeft.Y > 0){
             paddleLeft.Y-=8;
         }
-        if (kState.IsKeyDown(Keys.S)){
+        if (kState.IsKeyDown(Keys.S) && paddleLeft.Y + paddleLeft.Height < 480){
             paddleLeft.Y+=8;
         }
 
-        if (kState.IsKeyDown(Keys.Up)){
+        if (kState.IsKeyDown(Keys.Up) && paddleRight.Y > 0){
             paddleRight.Y-=8;
         }
-         if (kState.IsKeyDown(Keys.Down)){
+         if (kState.IsKeyDown(Keys.Down) && paddleRight.Y + paddleRight.Height < 480){
             paddleRight.Y+=8;
+        }
+
+        ball.X+= (int)velocityX;
+        ball.Y+= (int)velocityY;
+        if(ball.Intersects(paddleRight) || 
+            ball.Intersects(paddleLeft)){
+            velocityX *= -1.1f;
+            velocityY *= 1.1f;
+        }
+
+        if(ball.Y <= 0 || ball.Y + ball.Height >= 480){
+            velocityY *= -1;
+        }
+        
+        if(ball.X <= 0 || ball.X + ball.Width >= 800){
+            ball.X = 390;
+            ball.Y = 230;
+            velocityX = 3;
+            velocityY = 2;
         }
 
         // TODO: Add your update logic here
@@ -68,6 +95,9 @@ public class Game1 : Game
 
         // TODO: Add your drawing code here
         _spriteBatch.Begin();
+        _spriteBatch.DrawString(fontScore, scoreLeftPlayer.ToString(), new Vector2(10,10), Color.DarkOrange);
+        _spriteBatch.DrawString(fontScore, scoreRightPlayer.ToString(), new Vector2(730,10), Color.DarkOrange);
+
         _spriteBatch.Draw(pixel,paddleLeft,Color.HotPink); //ritar ut figurer och ändrar färg
         _spriteBatch.Draw(pixel,paddleRight,Color.HotPink);
         _spriteBatch.Draw(pixel,ball,Color.LightGoldenrodYellow);

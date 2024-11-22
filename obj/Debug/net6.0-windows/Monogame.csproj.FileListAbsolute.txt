@@ -36,3 +36,5 @@ C:\Users\Admin\Documents\GitHub\Monogame\obj\Debug\net6.0-windows\refint\Monogam
 C:\Users\Admin\Documents\GitHub\Monogame\obj\Debug\net6.0-windows\Monogame.pdb
 C:\Users\Admin\Documents\GitHub\Monogame\obj\Debug\net6.0-windows\Monogame.genruntimeconfig.cache
 C:\Users\Admin\Documents\GitHub\Monogame\obj\Debug\net6.0-windows\ref\Monogame.dll
+C:\Users\Admin\Documents\GitHub\Monogame\obj\Debug\net6.0-windows\Monogame.sourcelink.json
+C:\Users\Admin\Documents\GitHub\Monogame\bin\Debug\net6.0-windows\Content\Score.xnb
