@@ -32,3 +32,10 @@
 /processorParam:TextureFormat=Compressed
 /build:Score.spritefont
 
+#begin Vinst.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Vinst.spritefont
+

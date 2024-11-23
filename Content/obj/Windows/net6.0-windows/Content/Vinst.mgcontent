@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/Admin/Documents/GitHub/Monogame/Content/Score.spritefont</SourceFile>
-  <SourceTime>2024-11-23T09:13:19.2802123+01:00</SourceTime>
-  <DestFile>C:/Users/Admin/Documents/GitHub/Monogame/Content/bin/Windows/Content/Score.xnb</DestFile>
-  <DestTime>2024-11-23T09:14:25.3685028+01:00</DestTime>
+  <SourceFile>C:/Users/Admin/Documents/GitHub/Monogame/Content/Vinst.spritefont</SourceFile>
+  <SourceTime>2024-11-23T11:34:36.6250747+01:00</SourceTime>
+  <DestFile>C:/Users/Admin/Documents/GitHub/Monogame/Content/bin/Windows/Content/Vinst.xnb</DestFile>
+  <DestTime>2024-11-23T11:34:56.2745709+01:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>

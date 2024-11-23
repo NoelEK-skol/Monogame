@@ -6,8 +6,10 @@
   <SourceFiles>
     <File>C:/Users/Admin/Documents/GitHub/Monogame/Content/pixel.png</File>
     <File>C:/Users/Admin/Documents/GitHub/Monogame/Content/Score.spritefont</File>
+    <File>C:/Users/Admin/Documents/GitHub/Monogame/Content/Vinst.spritefont</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
