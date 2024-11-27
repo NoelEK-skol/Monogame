@@ -15,10 +15,8 @@ public class Game1 : Game
 
     Rectangle paddleLeft = new Rectangle(10, 200, 20, 100);
     Rectangle paddleRight = new Rectangle(770, 200, 20, 100);
-    Rectangle ball = new Rectangle(390, 230, 20, 20);
 
-    float velocityX = 3;
-    float velocityY = 2;
+    Ball ball;
 
     int scoreLeftPlayer = 0;
     int scoreRightPlayer = 0;
@@ -35,7 +33,6 @@ public class Game1 : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
-
         base.Initialize();
     }
 
@@ -47,6 +44,7 @@ public class Game1 : Game
         pixel = Content.Load<Texture2D>("Pixel");
         fontScore = Content.Load<SpriteFont>("Score");
         Vinst = Content.Load<SpriteFont>("Vinst");
+        ball = new Ball(pixel);
     }
 
     protected override void Update(GameTime gameTime)
@@ -71,43 +69,27 @@ public class Game1 : Game
                 paddleRight.Y+=8;
             }
 
-            ball.X+= (int)velocityX;
-            ball.Y+= (int)velocityY;
-            if(ball.Intersects(paddleRight) || 
-                ball.Intersects(paddleLeft)){
-                velocityX *= -1.1f;
-                velocityY *= 1.1f;
-            }
-
-            if(ball.Y <= 0 || ball.Y + ball.Height >= 480){
-                velocityY *= -1;
-            }
+            ball.update();
             
-            if(ball.X <= 0){
-                ball.X = 390;
-                ball.Y = 230;
-                velocityX = 3;
-                velocityY = 2;
+            if(ball.Rectangle.X <= 0){
+                ball.Reset();
                 scoreRightPlayer ++;
             }
 
-            if(ball.X + ball.Width >= 800){
-                ball.X = 390;
-                ball.Y = 230;
-                velocityX = 3;
-                velocityY = 2;
+            if(ball.Rectangle.X + ball.Rectangle.Width >= 800){
+                ball.Reset();
                 scoreLeftPlayer ++;
             }
             if(scoreLeftPlayer == 10){
                 scoreLeftPlayer = 0;
                 scoreRightPlayer = 0;
-                strWin = "Vanster Vann!";
+                strWin = "Left won!";
                 gameOver = true;
             }
             if(scoreRightPlayer == 10){
                 scoreLeftPlayer = 0;
                 scoreRightPlayer = 0;
-                strWin = "Hoger Vann!";
+                strWin = "Right won!";
                 gameOver = true;
             }
         }
@@ -127,12 +109,12 @@ public class Game1 : Game
         _spriteBatch.DrawString(fontScore, scoreLeftPlayer.ToString(), new Vector2(30,10), Color.DarkOrange);
         _spriteBatch.DrawString(fontScore, scoreRightPlayer.ToString(), new Vector2(710,10), Color.DarkOrange);
         if(gameOver){
-            _spriteBatch.DrawString(Vinst, strWin, new Vector2(200,40), Color.Black);
+            _spriteBatch.DrawString(Vinst, strWin, new Vector2(275,40), Color.Black);
         }
 
         _spriteBatch.Draw(pixel,paddleLeft,Color.HotPink); //ritar ut figurer och ändrar färg
         _spriteBatch.Draw(pixel,paddleRight,Color.HotPink);
-        _spriteBatch.Draw(pixel,ball,Color.LightGoldenrodYellow);
+        ball.Draw(_spriteBatch);
         _spriteBatch.End();
         base.Draw(gameTime);
     }
