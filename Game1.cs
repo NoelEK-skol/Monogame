@@ -13,9 +13,8 @@ public class Game1 : Game
     SpriteFont fontScore;
     SpriteFont Vinst;
 
-    Rectangle paddleLeft = new Rectangle(10, 200, 20, 100);
-    Rectangle paddleRight = new Rectangle(770, 200, 20, 100);
-
+    Paddle paddleLeft;
+    Paddle paddleRight;
     Ball ball;
 
     int scoreLeftPlayer = 0;
@@ -45,6 +44,8 @@ public class Game1 : Game
         fontScore = Content.Load<SpriteFont>("Score");
         Vinst = Content.Load<SpriteFont>("Vinst");
         ball = new Ball(pixel);
+        paddleLeft = new Paddle(pixel, new Rectangle(10,200,20,100), Keys.W, Keys.S);
+        paddleRight = new Paddle(pixel, new Rectangle(770,200,20,100), Keys.Up, Keys.Down);
     }
 
     protected override void Update(GameTime gameTime)
@@ -54,22 +55,15 @@ public class Game1 : Game
         
         if(!gameOver){
 
-            KeyboardState kState = Keyboard.GetState();
-            if (kState.IsKeyDown(Keys.W) && paddleLeft.Y > 0){
-                paddleLeft.Y-=8;
-            }
-            if (kState.IsKeyDown(Keys.S) && paddleLeft.Y + paddleLeft.Height < 480){
-                paddleLeft.Y+=8;
-            }
-
-            if (kState.IsKeyDown(Keys.Up) && paddleRight.Y > 0){
-                paddleRight.Y-=8;
-            }
-            if (kState.IsKeyDown(Keys.Down) && paddleRight.Y + paddleRight.Height < 480){
-                paddleRight.Y+=8;
-            }
+           paddleLeft.Update();
+           paddleRight.Update();
 
             ball.update();
+            if(paddleLeft.Rectangle.Intersects(ball.Rectangle) ||
+            paddleRight.Rectangle.Intersects(ball.Rectangle)){
+
+                ball.Bounce();
+            }
             
             if(ball.Rectangle.X <= 0){
                 ball.Reset();
@@ -112,8 +106,8 @@ public class Game1 : Game
             _spriteBatch.DrawString(Vinst, strWin, new Vector2(275,40), Color.Black);
         }
 
-        _spriteBatch.Draw(pixel,paddleLeft,Color.HotPink); //ritar ut figurer och ändrar färg
-        _spriteBatch.Draw(pixel,paddleRight,Color.HotPink);
+        paddleLeft.Draw(_spriteBatch);
+        paddleRight.Draw(_spriteBatch);
         ball.Draw(_spriteBatch);
         _spriteBatch.End();
         base.Draw(gameTime);
